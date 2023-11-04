@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import {BrowserRouter as Router} from 'react-router-dom'
 import './App.css';
+import NavBar from './Components/Navbar/Navbar';
+import Allroutes from './Allroutes';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchAllQuestions } from './actions/question';
+import { fetchAllUsers } from './actions/users';
+import Footer from './pages/Footer/Footer'
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchAllQuestions())
+    dispatch(fetchAllUsers())
+  }, [dispatch])
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+      <NavBar/>
+      <Allroutes/>
+      <Footer />
+      </Router>
+      
     </div>
-  );
+  );  
 }
 
 export default App;
